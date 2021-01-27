@@ -1,25 +1,16 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default class Searchbar extends Component {
-  state = {
-    inputValue: '',
-    // images: null,
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
   };
 
-  // componentDidMount() {
-  //   const ApiKey = '19996191-7ce9197af192fed24478377bf';
-  //   const value = this.state.inputValue;
-
-  //   // if (value === '') return;
-  //   fetch(
-  //     `https://pixabay.com/api/?q=${value}&page=1&key=${ApiKey}&image_type=photo&orientation=horizontal&per_page=12`,
-  //   )
-  //     .then(res => res.json())
-  //     .then(images => this.setState({ images }));
-  //   // .then(console.log);
-  // }
+  state = {
+    inputValue: '',
+  };
 
   handleInput = e => {
     this.setState({ inputValue: e.currentTarget.value.toLowerCase() });
