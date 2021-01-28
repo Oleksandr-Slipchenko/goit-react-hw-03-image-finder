@@ -64,9 +64,11 @@ export default class ImageGallery extends Component {
     }
 
     if (status === 'resolved') {
+      // {
+      //   this.handleImportState;
+      // }
       return (
         <ul className="ImageGallery">
-          {/* {this.handleImportState} */}
           {this.state.images.map(ImageGalleryItem)}
         </ul>
       );
