@@ -136,6 +136,10 @@ img {
   margin-right: auto;
 }
 
+.status {
+  text-align: center;
+}
+
 /*
  * Стили компонента ImageGalleryItem
  */
@@ -180,7 +184,7 @@ img {
 }
 
 /*
-* Стили компонента Buton (Load more)
+* Стили компонента Button (Load more)
 */
 .Button {
   padding: 8px 16px;

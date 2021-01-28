@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function ImageGalleryItem({ id, webformatURL, tags }) {
+function ImageGalleryItem({ id, webformatURL, tags, largeImageURL }) {
   return (
     <li className="ImageGalleryItem" key={id}>
       <img src={webformatURL} alt={tags} className="ImageGalleryItem-image" />
