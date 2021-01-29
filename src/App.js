@@ -9,6 +9,7 @@ class App extends Component {
   state = {
     inputValue: '',
     showModal: false,
+    largeImage: null,
     // images: [],
   };
 
@@ -26,9 +27,9 @@ class App extends Component {
     this.setState({ inputValue });
   };
 
-  // handleSetImages = images => {
-  //   this.setState({ images });
-  // };
+  handleSetLargeImage = e => {
+    this.setState({ largeImage: e });
+  };
 
   render() {
     const { inputValue, showModal } = this.state;
@@ -37,7 +38,7 @@ class App extends Component {
         <Searchbar onSubmit={this.handleSearchImages} />
         <ImageGallery
           inputValue={inputValue}
-          // onSetImages={this.handleSetImages}
+          setLargeImage={this.handleSetLargeImage}
         />
         {showModal && <Modal onClose={this.toggleModal} />}
         <ToastContainer autoClose={3000} />

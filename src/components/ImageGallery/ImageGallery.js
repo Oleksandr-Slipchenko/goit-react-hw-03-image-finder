@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import fetchApiImages from '../Api';
 import ImageGalleryItem from '../ImageGalleryItem';
 import Loading from '../Loader';
+// import Button from '../Button';
 
 export default class ImageGallery extends Component {
   static propTypes = {
@@ -17,6 +18,7 @@ export default class ImageGallery extends Component {
     images: null,
     error: null,
     status: 'idle',
+    imageSrcForModal: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -34,11 +36,8 @@ export default class ImageGallery extends Component {
     }
   }
 
-  // handleImportState = () => {
-  //   if (this.state.images !== null) {
-  //     this.props.onSetImages(this.state.images);
-  //   }
-  // };
+  handleChangeImageSrcForModal = url =>
+    this.setState({ imageSrcForModal: url });
 
   render() {
     const { error, status } = this.state;
@@ -64,13 +63,19 @@ export default class ImageGallery extends Component {
     }
 
     if (status === 'resolved') {
-      // {
-      //   this.handleImportState;
-      // }
       return (
-        <ul className="ImageGallery">
-          {this.state.images.map(ImageGalleryItem)}
-        </ul>
+        <div>
+          <ul className="ImageGallery">
+            {/* {this.state.images.map(ImageGalleryItem)} */}
+            {this.state.images.map(image => (
+              <ImageGalleryItem
+                {...image}
+                setLargeImage={this.handleChangeImageSrcForModal}
+              />
+            ))}
+          </ul>
+          {/* <Button /> */}
+        </div>
       );
     }
   }
