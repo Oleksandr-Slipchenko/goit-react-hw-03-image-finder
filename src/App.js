@@ -28,14 +28,8 @@ class App extends Component {
 
   handleOpenModal = largeImage => {
     this.setState({ largeImage });
+    this.toggleModal();
   };
-
-  // handleGetModal = () => {
-  //   if (this.state.largeImage !== null) {
-  //     this.props.onModal(this.state.largeImage);
-  //     this.toggleModal();
-  //   }
-  // };
 
   render() {
     const { inputValue, showModal } = this.state;
@@ -47,10 +41,7 @@ class App extends Component {
           getLargeImage={this.handleOpenModal}
         />
         {showModal && (
-          <Modal
-            onClose={this.toggleModal}
-            // onModal={this.handleGetModal}
-          />
+          <Modal onClose={this.toggleModal} onModal={this.state.largeImage} />
         )}
         <ToastContainer autoClose={3000} />
       </div>

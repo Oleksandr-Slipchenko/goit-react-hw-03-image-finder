@@ -36,8 +36,8 @@ export default class ImageGallery extends Component {
     }
   }
 
-  handleChangeImageSrcForModal = e => {
-    this.setState({ imageSrcForModal: e });
+  handleChangeImageSrcForModal = largeImageURL => {
+    this.setState({ imageSrcForModal: largeImageURL });
 
     // this.props.getLargeImage(this.state.imageSrcForModal);
 

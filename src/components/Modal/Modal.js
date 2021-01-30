@@ -28,9 +28,9 @@ export default class Modal extends Component {
     }
   };
 
-  // handleSetModalImage = e => {
-  //   this.setState({ image: e });
-  // };
+  handleSetModalImage = e => {
+    this.setState({ image: e });
+  };
 
   render() {
     return createPortal(
@@ -41,7 +41,6 @@ export default class Modal extends Component {
       >
         <div className="Modal">
           <img
-            src=""
             // src={this.state.image}
             alt=""
           />
