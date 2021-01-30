@@ -10,7 +10,6 @@ class App extends Component {
     inputValue: '',
     showModal: false,
     largeImage: null,
-    // images: [],
   };
 
   toggleModal = () => {
@@ -27,9 +26,16 @@ class App extends Component {
     this.setState({ inputValue });
   };
 
-  handleSetLargeImage = e => {
-    this.setState({ largeImage: e });
+  handleOpenModal = largeImage => {
+    this.setState({ largeImage });
   };
+
+  // handleGetModal = () => {
+  //   if (this.state.largeImage !== null) {
+  //     this.props.onModal(this.state.largeImage);
+  //     this.toggleModal();
+  //   }
+  // };
 
   render() {
     const { inputValue, showModal } = this.state;
@@ -38,9 +44,14 @@ class App extends Component {
         <Searchbar onSubmit={this.handleSearchImages} />
         <ImageGallery
           inputValue={inputValue}
-          setLargeImage={this.handleSetLargeImage}
+          getLargeImage={this.handleOpenModal}
         />
-        {showModal && <Modal onClose={this.toggleModal} />}
+        {showModal && (
+          <Modal
+            onClose={this.toggleModal}
+            // onModal={this.handleGetModal}
+          />
+        )}
         <ToastContainer autoClose={3000} />
       </div>
     );

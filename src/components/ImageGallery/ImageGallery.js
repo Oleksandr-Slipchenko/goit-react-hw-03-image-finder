@@ -36,8 +36,13 @@ export default class ImageGallery extends Component {
     }
   }
 
-  handleChangeImageSrcForModal = url =>
-    this.setState({ imageSrcForModal: url });
+  handleChangeImageSrcForModal = e => {
+    this.setState({ imageSrcForModal: e });
+
+    // this.props.getLargeImage(this.state.imageSrcForModal);
+
+    setTimeout(() => this.props.getLargeImage(this.state.imageSrcForModal), 1);
+  };
 
   render() {
     const { error, status } = this.state;
@@ -66,10 +71,10 @@ export default class ImageGallery extends Component {
       return (
         <div>
           <ul className="ImageGallery">
-            {/* {this.state.images.map(ImageGalleryItem)} */}
             {this.state.images.map(image => (
               <ImageGalleryItem
                 {...image}
+                key={image.id}
                 setLargeImage={this.handleChangeImageSrcForModal}
               />
             ))}

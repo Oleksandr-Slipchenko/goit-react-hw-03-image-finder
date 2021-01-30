@@ -1,19 +1,20 @@
 import PropTypes from 'prop-types';
 
 function ImageGalleryItem({
-  id,
   webformatURL,
   tags,
   setLargeImage,
   largeImageURL,
 }) {
   return (
-    <li className="ImageGalleryItem" key={id}>
+    <li className="ImageGalleryItem">
       <img
         src={webformatURL}
         alt={tags}
         className="ImageGalleryItem-image"
-        onClick={() => setLargeImage(largeImageURL)}
+        onClick={() => {
+          setLargeImage(largeImageURL);
+        }}
       />
     </li>
   );
