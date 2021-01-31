@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import fetchApiImages from '../Api';
 import ImageGalleryItem from '../ImageGalleryItem';
 import Loading from '../Loader';
-// import Button from '../Button';
+import Button from '../Button';
 
 export default class ImageGallery extends Component {
   static propTypes = {
@@ -16,41 +16,62 @@ export default class ImageGallery extends Component {
 
   state = {
     images: null,
+    page: 1,
     error: null,
     status: 'idle',
-    imageSrcForModal: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
+    const prevValue = prevProps.inputValue;
     const value = this.props.inputValue;
+    const prevPage = prevState.page;
+    const nextPage = this.state.page;
 
-    if (prevProps.inputValue !== value) {
-      this.setState({ status: 'pending' });
+    if (prevValue !== value) {
+      // this.setState({ status: 'pending' });
+      this.setState({ images: [], page: 1 });
+    }
 
-      fetchApiImages
-        .fetchApi(value)
-        .then(images =>
-          this.setState({ images: images.hits, status: 'resolved' }),
-        )
-        .catch(error => this.setState({ error, status: 'rejected' }));
+    if (prevValue !== value || prevPage !== nextPage) {
+      this.searchMoreImages(value, nextPage);
     }
   }
 
-  handleChangeImageSrcForModal = largeImageURL => {
-    this.setState({ imageSrcForModal: largeImageURL });
+  searchMoreImages(value, nextPage) {
+    this.setState({ status: 'pending' });
 
-    // this.props.getLargeImage(this.state.imageSrcForModal);
+    fetchApiImages
+      .fetchApi(value, nextPage)
+      .then(images => {
+        this.setState(prevState => ({
+          images: [...prevState.images, ...images.hits],
+          status: 'resolved',
+        }));
+      })
+      .catch(error => this.setState({ error, status: 'rejected' }))
+      .finally(() => {
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: 'smooth',
+        });
+      });
+  }
 
-    setTimeout(() => this.props.getLargeImage(this.state.imageSrcForModal), 1);
+  loadMore = () => {
+    this.setState(prevState => {
+      return {
+        page: prevState.page + 1,
+      };
+    });
   };
 
   render() {
-    const { error, status } = this.state;
+    const { error, status, images } = this.state;
 
     if (status === 'idle') {
       return (
         <div>
-          <p className="status">Введите значение искомой картинки</p>
+          <p className="status">Введите название искомой картинки</p>
         </div>
       );
     }
@@ -69,18 +90,16 @@ export default class ImageGallery extends Component {
 
     if (status === 'resolved') {
       return (
-        <div>
+        <>
           <ul className="ImageGallery">
-            {this.state.images.map(image => (
-              <ImageGalleryItem
-                {...image}
-                key={image.id}
-                setLargeImage={this.handleChangeImageSrcForModal}
-              />
+            {images.map(image => (
+              <ImageGalleryItem {...image} key={image.id} />
             ))}
           </ul>
-          {/* <Button /> */}
-        </div>
+          {(images.length > 0 || status === 'resolved') && (
+            <Button loadMore={this.loadMore} />
+          )}
+        </>
       );
     }
   }

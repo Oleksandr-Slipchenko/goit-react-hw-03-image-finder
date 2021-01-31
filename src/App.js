@@ -3,46 +3,23 @@ import { ToastContainer } from 'react-toastify';
 
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
-import Modal from './components/Modal';
 
 class App extends Component {
   state = {
     inputValue: '',
-    showModal: false,
-    largeImage: null,
-  };
-
-  toggleModal = () => {
-    // this.setState(state => ({
-    //   showModal: !state.showModal,
-    // }));
-    // Деструктуризация:
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
   };
 
   handleSearchImages = inputValue => {
     this.setState({ inputValue });
   };
 
-  handleOpenModal = largeImage => {
-    this.setState({ largeImage });
-    this.toggleModal();
-  };
-
   render() {
-    const { inputValue, showModal } = this.state;
+    const { inputValue } = this.state;
     return (
       <div>
         <Searchbar onSubmit={this.handleSearchImages} />
-        <ImageGallery
-          inputValue={inputValue}
-          getLargeImage={this.handleOpenModal}
-        />
-        {showModal && (
-          <Modal onClose={this.toggleModal} onModal={this.state.largeImage} />
-        )}
+        <ImageGallery inputValue={inputValue} />
+
         <ToastContainer autoClose={3000} />
       </div>
     );

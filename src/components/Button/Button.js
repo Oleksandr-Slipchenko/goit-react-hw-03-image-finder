@@ -1,12 +1,17 @@
-// function Button() {
-//   return (
-//     <button type="button" className="Button">Load more<button/>
-//   )
-// };
+import PropTypes from 'prop-types';
 
-{
-  /* window.scrollTo({
-  top: document.documentElement.scrollHeight,
-  behavior: 'smooth',
-}); */
+function Button({ loadMore }) {
+  return (
+    <div className="Button-block">
+      <button type="button" className="Button" onClick={loadMore}>
+        Load more
+      </button>
+    </div>
+  );
 }
+
+Button.propTypes = {
+  loadMore: PropTypes.func.isRequired,
+};
+
+export default Button;
