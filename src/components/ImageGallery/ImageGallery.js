@@ -41,10 +41,12 @@ export default class ImageGallery extends Component {
     this.setState({ status: 'pending' });
 
     fetchApiImages
-      .fetchApi(value, nextPage)
+      .getImages(value, nextPage)
       .then(images => {
         this.setState(prevState => ({
-          images: [...prevState.images, ...images.hits],
+          // images: [...prevState.images, ...images.hits],
+          images: [...prevState.images, ...images],
+
           status: 'resolved',
         }));
       })
